@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!-- =============================================================
+     Alex Freidah – Static Resume (resume.html)
+     One-column, responsive, print-friendly resume with dark mode.
+     Collapsible job cards using <details>/<summary>.
+     - CSS in styles.css
+     - JS in theme.js
+     ============================================================= -->
+<html lang="en" class="dark" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Alex Freidah — Senior Software Engineer (DevOps / Platform)</title>
+  <meta name="description" content="Senior Infrastructure Engineer with 7+ years delivering scalable cloud infrastructure and automation solutions. Expert in Terraform, CI/CD pipelines, and DevOps methodologies. Designed multi-region architectures and secured SOC 2 compliance, optimizing workflows for development teams." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="container" itemscope itemtype="https://schema.org/Person">
+    <header role="banner">
+      <div class="name" itemprop="name">Alex Freidah</div>
+      <div class="role">Senior Software Engineer — DevOps | Tooling | Cloud/Platform | CI/CD</div>
+      <div class="contact">
+        <span itemprop="telephone"><a href="tel:+17033623220" target="_blank" rel="noopener noreferrer">703-362-3220</a></span>
+        <span class="dot">•</span>
+        <span itemprop="email"><a href="mailto:alex.freidah@gmail.com" target="_blank" rel="noopener noreferrer">alex.freidah@gmail.com</a></span>
+        <span class="dot">•</span>
+        <a href="https://github.com/afreidah" target="_blank" rel="noopener noreferrer" itemprop="sameAs">github.com/afreidah</a>
+        <span class="dot">•</span>
+        <a href="https://www.linkedin.com/in/alex-freidah/" target="_blank" rel="noopener noreferrer" itemprop="sameAs">linkedin.com/in/alex-freidah</a>
+        <span class="dot">•</span>
+        <span class="screen-only" aria-hidden="true">Los Angeles, CA</span>
+        <span class="actions">
+          <button
+            class="btn"
+            id="theme-toggle"
+            aria-pressed="true"
+            title="Toggle theme"
+            data-label-dark="Dark Theme"
+            data-label-light="Light Theme"
+          >Light Theme</button>
+        </span>
+      </div>
+      <meta itemprop="url" content="https://resume.alexfreidah.com" />
+    </header>
+
+    <!-- =========================== Summary =========================== -->
+    <section id="summary" aria-labelledby="summary-h">
+      <h2 id="summary-h">Professional Summary</h2>
+      <p>
+        Senior Infrastructure Engineer delivering scalable cloud and automation solutions. Expert in Terraform/Terragrunt, CI/CD, container orchestration, and security/compliance. Proven track record designing multi-region architectures, implementing platform tooling, and driving SOC 2 readiness.
+      </p>
+    </section>
+
+    <!-- ======================== Experience ========================== -->
+    <section id="experience" aria-labelledby="exp-h">
+      <h2 id="exp-h">Professional Experience</h2>
+
+      <!-- EDO -->
+      <details class="item job" aria-labelledby="edo-title">
+        <summary>
+          <h3 id="edo-title">EDO, Inc. — Senior Infrastructure Engineer</h3>
+          <div class="meta">May 2022 – Sep 2025 · Los Angeles, CA (Remote)</div>
+        </summary>
+        <ul>
+          <li>Architected a multi-AZ OpenBao (Vault) cluster with automatic unsealing and dynamic clustering enhancing security and efficiency.</li>
+          <li>Architected and implemented a multi-region OpenVPN cluster connecting the company’s three U.S. offices and remote personnel, including contractors in the Philippines, ensuring secure and reliable cross-continental communication channels.</li>
+          <li>Authored Jenkins Groovy libraries and self-service pipeline proposals, automating container builds and Terraform deployments supporting 20+ developers.</li>
+          <li>Led SOC 2 compliance initiative, safeguarding data protection and user access control resulting in certification.</li>
+          <li>Developed SonarQube infrastructure integrated into Git-Ops workflows, enabling quality and security scanning for 20+ development projects.</li>
+          <li>Engineered AWS infrastructure across 15+ services with Terraform/Terragrunt modernizing and creating CI/CD workflows for 20+ pipelines with linting, testing, and cost analysis.</li>
+          <li>Crafted a Python (Snowpark) program using async processing, in-memory caching, and thread-pool multithreading, reducing a 12-hour process to ~5 hours with a 100% success rate.</li>
+        </ul>
+      </details>
+
+      <!-- Optoro -->
+      <details class="item job" aria-labelledby="optoro-title">
+        <summary>
+          <h3 id="optoro-title">Optoro — Senior Infrastructure Engineer</h3>
+          <div class="meta">Mar 2014 – Mar 2022 · Washington, DC (Remote)</div>
+        </summary>
+        <ul>
+          <li>Owned PostgreSQL lifecycle across AWS, Kubernetes, and Joyent SDC with near-zero downtime over 7 years supporting 22 critical microservices.</li>
+          <li>Programmed SOC 2 compliance tooling in Go, enabling audit readiness for 22 microservices through dynamic backup and security monitoring.</li>
+          <li>Automated provisioning of 200 nationwide shipping stations using Clonezilla PXE and custom scripts, enhancing scalability and consistency.</li>
+          <li>Designed and managed CI/CD pipelines via Jenkins and GitLab CI for 4+ data stores and infrastructure services improving deployment reliability.</li>
+          <li>Implemented observability stack with Prometheus, Grafana, ELK, Alertmanager, Nagios, NewRelic supporting monitoring of 1000+ services.</li>
+          <li>Managed and maintained large-scale database fleets, monitoring, metrics, alerting, and logging across various platforms including AWS, Joyent SDC, and GCP.</li>
+        </ul>
+      </details>
+
+      <!-- AOL -->
+      <details class="item job" aria-labelledby="aol-title">
+        <summary>
+          <h3 id="aol-title">AOL — Data Warehouse Operations (DevOps)</h3>
+          <div class="meta">Nov 2012 – Mar 2014 · Dulles, VA</div>
+        </summary>
+        <ul>
+          <li>Enhanced data-processing visibility by <strong>50%</strong> across AOL platforms (HuffPost, TechCrunch) by scripting Zenoss to monitor <strong>3M+</strong> daily ETL records.</li>
+          <li>Improved analytics workload efficiency by <strong>25%</strong> by overseeing ETL process monitoring on Ab Initio, Hadoop, Vertica, and Oracle systems handling millions of records daily.</li>
+          <li>Presented Ruby testing techniques at <strong>6 local meetups</strong>, strengthening community engagement and testing practices.</li>
+          <li>Delivered <strong>12</strong> TDD/acceptance-testing talks (Ruby/Cucumber), training <strong>30+</strong> team members at AOL’s Data Warehouse.</li>
+          <li>Mentored an intern in a <strong>2-week</strong> program, sharing data-warehouse operations knowledge and technical skills.</li>
+        </ul>
+      </details>
+
+      <!-- TMCI -->
+      <details class="item job" aria-labelledby="tmci-title">
+        <summary>
+          <h3 id="tmci-title">TMCI International — Analyst / Developer</h3>
+          <div class="meta">Jul 2009 – Nov 2012 · Falls Church, VA</div>
+        </summary>
+        <ul>
+          <li>Held United States Secret-level clearance.</li>
+          <li>Promoted from Analyst to sole developer/maintainer of TAD duplicate-detection/merge system for the TRICARE Clinical Data Repository (Oracle on HP-UX).</li>
+          <li>Automated analyst workflows with VBA/browser integration, cutting manual effort to near zero and multiplying throughput.</li>
+          <li>Designed PL/SQL + rules-based matching pipelines scaling merges from ~100k to millions annually, proactively cleaning patient records.</li>
+          <li>Applied custom phonetic matching (Soundex, Phonex) in C# DLLs integrated with a VB5 engine, improving duplicate detection by ~5%.</li>
+          <li>Built a multithreaded C/pthreads engine to parallelize massive SQL updates, adapting modern C to HP-UX compiler quirks and reducing processing time by ~50%.</li>
+          <li>Exhibited rapid self-learning (C, C#, PL/SQL, VBA) and integrated them into production systems.</li>
+        </ul>
+      </details>
+    </section>
+
+    <!-- =========================== Education ======================== -->
+    <section id="education" aria-labelledby="edu-h">
+      <h2 id="edu-h">Education</h2>
+      <article class="item">
+        <div>
+          <h3>Johns Hopkins University — Peabody Conservatory of Music</h3>
+          <p>Bachelor of Music, Classical Guitar Performance (2005–2009) · Baltimore, MD</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ==================== Additional Sections ==================== -->
+    <section id="achievements" aria-labelledby="ach-h">
+      <h2 id="ach-h">Key Achievements</h2>
+      <article class="item"><div><h3>Enhanced VPN Performance</h3><p>Increased VPN performance by ~50% with a multi-region setup.</p></div></article>
+      <article class="item"><div><h3>Ensured Database Uptime</h3><p>Maintained ~99.9% uptime for PostgreSQL over 7 years organization-wide.</p></div></article>
+      <article class="item"><div><h3>Optimized ETL Efficiency</h3><p>Improved Python Snowpark ETL runtime by ~58%, reducing OOM risks.</p></div></article>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-h">
+      <h2 id="skills-h">Skills</h2>
+    
+      <!-- One collapsible card per category -->
+      <details class="item skill">
+        <summary><h3>Cloud &amp; Platforms</h3></summary>
+        <ul>
+          <li>AWS (EC2, RDS, S3, IAM, VPC)</li>
+          <li>GCP</li>
+          <li>Linux</li>
+        </ul>
+      </details>
+    
+      <details class="item skill">
+        <summary><h3>IaC &amp; Config</h3></summary>
+        <ul>
+          <li>Terraform, Terragrunt, CDKTF</li>
+          <li>Chef, Puppet</li>
+        </ul>
+      </details>
+    
+      <details class="item skill">
+        <summary><h3>CI/CD &amp; Tooling</h3></summary>
+        <ul>
+          <li>Jenkins, GitLab CI, GitHub Actions</li>
+          <li>Groovy, Docker</li>
+        </ul>
+      </details>
+    
+      <details class="item skill">
+        <summary><h3>Orchestration</h3></summary>
+        <ul>
+          <li>Kubernetes</li>
+          <li>Nomad</li>
+          <li>Consul</li>
+        </ul>
+      </details>
+    
+      <details class="item skill">
+        <summary><h3>Observability</h3></summary>
+        <ul>
+          <li>Prometheus, Grafana, Alertmanager</li>
+          <li>ELK, Nagios, New Relic</li>
+        </ul>
+      </details>
+    
+      <details class="item skill">
+        <summary><h3>Datastores &amp; Queues</h3></summary>
+        <ul>
+          <li>PostgreSQL, MySQL/MariaDB, MongoDB, SQLite, RDS</li>
+          <li>Redis</li>
+          <li>RabbitMQ</li>
+        </ul>
+      </details>
+    
+      <details class="item skill">
+        <summary><h3>Languages</h3></summary>
+        <ul>
+          <li>Go, Python, Ruby, Bash</li>
+          <li>C, C#</li>
+          <li>SQL, HCL, YAML, VBA</li>
+        </ul>
+      </details>
+    
+      <details class="item skill">
+        <summary><h3>Security</h3></summary>
+        <ul>
+          <li>Vault / OpenBao</li>
+          <li>IAM</li>
+          <li>SOC 2</li>
+        </ul>
+      </details>
+    </section>
+
+    <section id="projects" aria-labelledby="proj-h">
+      <h2 id="proj-h">Projects &amp; Open Source</h2>
+      <article class="item"><div><h3>AWS VPC Peering Tool (Go/CDKTF/Docker/GitHub Actions)</h3><p>Reusable CDK for Terraform module managing AWS VPC peering connections with automated routing, DNS resolution, and subnet propagation driven by YAML configuration.</p></div><a class="cover-link" href="https://github.com/afreidah/vpc-peering-tool" target="_blank" rel="noopener noreferrer"></a></article>
+      <article class="item"><div><h3>Munchbox (Chef/Ruby/Go/CDKTF/Docker/GitHub Actions)</h3><p>Homelab platform deploying Nomad, Consul, and Vault using Chef and CDKTF. Automates provisioning, policy, and token management for reproducible, secure environments.</p></div><a class="cover-link" href="https://github.com/afreidah/munchbox" target="_blank" rel="noopener noreferrer"></a></article>
+      <article class="item"><div><h3>Gredentures (Go / AWS / IAM)</h3><p>Go-based CLI managing AWS credentials and MFA sessions. Provides streamlined profile rotation via YAML config and device persistence.</p></div><a class="cover-link" href="https://github.com/afreidah/gredentures" target="_blank" rel="noopener noreferrer"></a></article>
+      <article class="item"><div><h3>Contribution to the Go Codebase</h3><p>Fixed typo in Google’s Go <code>protobuf-go</code> library found via custom CI/CD build, package, and lint workflow. Patch merged upstream.</p></div><a class="cover-link" href="https://go-review.googlesource.com/c/protobuf/+/697595" target="_blank" rel="noopener noreferrer"></a></article>
+    </section>
+
+    <section id="strengths" aria-labelledby="str-h">
+      <h2 id="str-h">Strengths</h2>
+      <article class="item"><div><h3>Experienced Instructor</h3><p>Fifteen years of teaching experience including community college instruction; skilled at mentoring and enabling junior engineers to succeed.</p></div></article>
+      <article class="item"><div><h3>Self-Starter</h3><p>Leads end-to-end automation projects across diverse stacks; improves processes by 25%+ through proactive design and tool development.</p></div></article>
+    </section>
+
+    <!-- =========================== Footer =========================== -->
+    <footer class="meta" aria-label="Footer">
+      <span class="screen-only">Updated: October 5, 2025</span>
+      <p class="footnote">
+        Hosted on my homelab Nomad/Consul cluster (Raspberry Pi 5s and mini-PCs). Deployed as a Docker container via CDKTF; ingress via Cloudflared. Local DNS: Pi-hole + Unbound.
+      </p>
+    </footer>
+  </main>
+
+  <!-- Accordion script -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const jobs = Array.from(document.querySelectorAll('details.item.job'));
+    jobs.forEach(d => {
+      d.addEventListener('toggle', () => {
+        if (d.open) {
+          jobs.forEach(o => { if (o !== d) o.open = false; });
+        }
+      });
+    });
+  });
+  </script>
+
+  <script defer src="theme.js"></script>
+</body>
+</html>
+
