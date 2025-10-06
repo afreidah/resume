@@ -158,8 +158,7 @@
     <!-- ======================= Key Achievements ====================== -->
     <section id="achievements" aria-labelledby="ach-h">
       <h2 id="ach-h">Key Achievements</h2>
-      <!-- Single-line items (no cards) -->
-      <ul>
+      <ul class="ach ticks two-col">
         <li>Increased VPN performance by ~50% with a multi-region setup.</li>
         <li>Ensured PostgreSQL uptime of ~99.9% over 7 years organization-wide.</li>
         <li>Optimized Python Snowpark ETL runtime by ~58%, eliminating OOM risks.</li>
@@ -210,11 +209,11 @@
       <!-- No boxes here -->
       <div>
         <h3>Experienced Instructor</h3>
-        <p>Fifteen years of teaching music including community college instruction, enabling effective training and development of junior engineers.</p>
+        <p>Fifteen years of teaching music including at the community college level, enabling effective training and development of junior engineers.</p>
       </div>
       <div>
-        <h3>Self-Starter</h3>
-        <p>Led end-to-end projects across multiple stacks, improving processes by ~25% through strategic automation and architecture. Very comfortable working remotely with 6 years of remote work on teams spread around the world.</p>
+        <h3>Independent and Ownership-Oriented</h3>
+        <p>Leads cross-stack infrastructure and automation projects end to end, proactively identifying improvements and driving ~25% efficiency gains through strategic architecture and tooling. Strong track record collaborating across globally distributed teams.</p>
       </div>
     </section>
 
@@ -232,7 +231,7 @@
     <footer class="meta" aria-label="Footer">
       <span class="screen-only">Updated: October 5, 2025</span>
       <p class="footnote">
-        Served from my homelab Nomad/Consul cluster (Raspberry Pi 5s and mini-PCs) via Docker and CDKTF; ingress through Cloudflared. Local DNS: Pi-hole + Unbound.
+        Served from my homelab Nomad/Consul cluster (Raspberry Pi 5s and mini-PCs) via cloudflared tunnel ingress, traefik routing via consul service discovery, and docker.  Built with Chef, HCL, and CDKTF in Go.
       </p>
     </footer>
   </main>

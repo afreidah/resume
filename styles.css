@@ -164,7 +164,7 @@ ul li::marker { color: var(--accent-red); }
 /* =============================================================
    PRINT
    ============================================================= */
-@media print {
+@media (print) {
   .btn, .actions, .screen-only { display: none !important; }
   a[href]::after { content: none !important; }
   .item { break-inside: avoid; page-break-inside: avoid; }
@@ -249,12 +249,41 @@ dl.skills.tight dd {
 }
 
 /* =============================================================
+   ACHIEVEMENTS — Two-column tick list (no boxes, no hover)
+   ============================================================= */
+.ach {
+  list-style: none;
+  padding-left: 0;
+  margin: 12px 0 0 0;
+}
+.ach.ticks.two-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 18px;
+}
+.ach.ticks li {
+  position: relative;
+  padding-left: 22px;
+  line-height: 1.45;
+}
+.ach.ticks li::before {
+  content: "";
+  position: absolute; left: 0; top: 4px;
+  width: 14px; height: 14px; background: var(--accent-red);
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="%23000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center / contain;
+          mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="%23000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center / contain;
+}
+@media (max-width: 720px) {
+  .ach.ticks.two-col { grid-template-columns: 1fr; }
+}
+
+/* =============================================================
    LINK ICON (before project titles)
    ============================================================= */
 .link-icon {
   display: inline-block;
-  width: 22px;     /* was 14px */
-  height: 22px;    /* was 14px */
+  width: 22px;
+  height: 22px;
   margin-right: 8px;
   vertical-align: -3px; /* nudge to align with text baseline */
   background: var(--accent);
