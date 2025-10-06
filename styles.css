@@ -84,9 +84,18 @@ a:hover { text-decoration: underline; }
 header[role="banner"] { display: grid; gap: 8px; }
 .name { font-size: 2rem; font-weight: 800; letter-spacing: -0.01em; }
 .role { font-size: 1.125rem; color: var(--muted); }
+
+/* Role line + theme toggle inline */
+.topline {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.topline .actions { margin-left: auto; display: inline-flex; gap: 8px; }
+
 .contact { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .dot { opacity: .45; }
-.actions { margin-left: auto; display: inline-flex; gap: 8px; }
+.actions { display: inline-flex; gap: 8px; }
 .btn {
   appearance: none;
   border: 1px solid var(--border);
@@ -97,6 +106,12 @@ header[role="banner"] { display: grid; gap: 8px; }
   cursor: pointer;
   box-shadow: var(--shadow);
   white-space: nowrap;
+}
+
+/* Keep the toggle inline on small screens */
+@media (max-width: 640px) {
+  .topline { flex-wrap: nowrap; }
+  .topline .actions { margin-left: auto; }
 }
 
 /* =============================================================
@@ -154,11 +169,6 @@ ul li::marker { color: var(--accent-red); }
   .item:has(> a.cover-link):hover {
     border-color: rgba(37, 99, 235, 0.45);
   }
-}
-
-/* Responsive tweaks */
-@media (max-width: 640px) {
-  .actions { width: 100%; margin: 8px 0 0 0; justify-content: flex-start; }
 }
 
 /* =============================================================
