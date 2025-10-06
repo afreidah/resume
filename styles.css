@@ -5,18 +5,15 @@
   --bg: #ffffff;
   --fg: #111827;
   --muted: #6b7280;
-  --accent: #2563eb;        /* primary blue for links / job headers */
-  --accent-red: #ef4444;    /* red accent for headings, bullets, labels */
+  --accent: #2563eb;       /* blue: links + job titles */
+  --accent-red: #ef4444;   /* red: section headings + markers */
   --card: #f9fafb;
   --border: #e5e7eb;
   --radius: 14px;
   --shadow: 0 1px 1px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.06);
   --maxw: 900px;
-  --padx: 20px;
   color-scheme: light dark;
 }
-
-/* System preference applies ONLY when no explicit choice has been made */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --bg: #070b10;
@@ -29,8 +26,6 @@
     --shadow: 0 0 0 1px rgba(255,255,255,0.06) inset, 0 10px 30px rgba(0,0,0,0.6);
   }
 }
-
-/* Explicit themes override system preference */
 :root[data-theme='dark'] {
   --bg: #070b10;
   --fg: #eaf0f7;
@@ -54,6 +49,14 @@
   color-scheme: light;
 }
 
+/* Hover tint for clickable things */
+:root {
+  --hover-tint: color-mix(in srgb, var(--accent) 10%, var(--card));
+}
+@supports not (background: color-mix(in srgb, white, black)) {
+  :root { --hover-tint: rgba(37, 99, 235, 0.10); } /* fallback */
+}
+
 /* =============================================================
    BASE TYPOGRAPHY + LAYOUT
    ============================================================= */
@@ -62,27 +65,26 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
-        Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji",
-        "Segoe UI Emoji";
+  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+        Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 .container {
   max-width: var(--maxw);
-  padding: 34px var(--padx);
+  padding: 34px 20px;
   margin: 0 auto;
 }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+/* =============================================================
+   HEADER
+   ============================================================= */
 header[role="banner"] { display: grid; gap: 8px; }
 .name { font-size: 2rem; font-weight: 800; letter-spacing: -0.01em; }
 .role { font-size: 1.125rem; color: var(--muted); }
-
-.contact {
-  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
-}
+.contact { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .dot { opacity: .45; }
 .actions { margin-left: auto; display: inline-flex; gap: 8px; }
 .btn {
@@ -97,24 +99,24 @@ header[role="banner"] { display: grid; gap: 8px; }
   white-space: nowrap;
 }
 
+/* =============================================================
+   SECTIONS + HEADINGS
+   ============================================================= */
 section { margin: 28px 0; }
-
-/* Section headers: keep neutral divider, make text red */
 h2 {
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: .08em;
-  color: var(--accent-red);           /* red text for pop */
-  border-bottom: 1px solid var(--border);  /* neutral divider stays */
+  color: var(--accent-red);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 6px;
   margin-bottom: 12px;
 }
 
-/* Card styling */
+/* =============================================================
+   CARDS
+   ============================================================= */
 .item {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 6px 10px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -122,26 +124,17 @@ h2 {
   box-shadow: var(--shadow);
   margin-bottom: 10px;
   position: relative;
+  transition: background .15s ease, border-color .15s ease, transform .12s ease;
 }
-.item h3 { margin: 0; font-size: 1.0625rem; }
+.item h3 { margin: 0; font-size: 1.0625rem; color: var(--accent); }
 .meta { color: var(--muted); font-size: .94rem; }
 
-/* Bullet list spacing + red bullet markers */
+/* Bullets */
 ul { margin: 8px 0 0 18px; }
 li { margin: 6px 0; }
 ul li::marker { color: var(--accent-red); }
 
-/* Skills labels in red for scanability */
-dl.skills {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 8px 16px;
-  margin: 0;
-}
-dl.skills dt { font-weight: 700; color: var(--accent-red); }
-dl.skills dd { margin: 0; }
-
-/* Full-card invisible link */
+/* Cover-link cards (Projects): whole card hover */
 .item a.cover-link {
   position: absolute;
   inset: 0;
@@ -153,31 +146,23 @@ dl.skills dd { margin: 0; }
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
+.item:has(> a.cover-link):hover {
+  background: var(--hover-tint);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+@supports not (background: color-mix(in srgb, white, black)) {
+  .item:has(> a.cover-link):hover {
+    border-color: rgba(37, 99, 235, 0.45);
+  }
+}
 
+/* Responsive tweaks */
 @media (max-width: 640px) {
-  .item { grid-template-columns: 1fr; }
   .actions { width: 100%; margin: 8px 0 0 0; justify-content: flex-start; }
 }
 
-/* Project cards: subtle distinction (unchanged) */
-#projects .item { border-color: #dbeafe; }
-:root[data-theme='dark'] #projects .item { border-color: #375885; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) #projects .item { border-color: #375885; }
-}
-
-/* Title tint for projects (blue) */
-#projects .item h3 { color: #475569; }
-:root[data-theme='dark'] #projects .item h3 { color: #9fb7ff; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) #projects .item h3 { color: #9fb7ff; }
-}
-
-/* Achievements titles in red to balance color */
-#achievements .item h3 { color: var(--accent-red); }
-
 /* =============================================================
-   PRINT RULES
+   PRINT
    ============================================================= */
 @media print {
   .btn, .actions, .screen-only { display: none !important; }
@@ -186,155 +171,95 @@ dl.skills dd { margin: 0; }
   body { font-size: 12pt; }
   .container { padding: .25in .5in; }
 }
-
 .footnote { font-size: .8rem; color: var(--muted); margin-top: 6px; }
 
 /* =============================================================
-   Collapsible Job Cards (no arrows, blue header, no hover underline)
+   COLLAPSIBLE JOB CARDS (whole box hover, header-only cursor)
    ============================================================= */
-
-/* Card container + pointer cursor on whole card */
 details.item.job {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  box-shadow: var(--shadow);
-  margin-bottom: 10px;
-  cursor: pointer; /* whole card is clickable */
+  cursor: default;        /* content area normal */
+  overflow: hidden;       /* keep rounded corners clean */
+}
+details.item.job:hover {
+  background: var(--hover-tint);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+@supports not (background: color-mix(in srgb, white, black)) {
+  details.item.job:hover {
+    border-color: rgba(37, 99, 235, 0.45);
+  }
 }
 
-/* Summary row */
+/* Header line remains the click target (hand cursor only here) */
 .item.job summary {
   list-style: none;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: baseline;
   gap: 6px 10px;
-  cursor: inherit;   /* inherits pointer from details */
+  cursor: pointer;        /* only header shows hand */
   outline: none;
-  padding: 0;
   color: var(--fg);
+
+  /* stretch header to card edges for visual balance */
+  margin: -14px -16px 0 -16px;
+  padding: 14px 16px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s ease;
 }
-
-/* Blue job title for affordance */
+.item.job[open] summary { border-bottom-color: var(--border); }
 .item.job summary h3 { margin: 0; color: var(--accent); }
-
-/* Muted meta info (dates/location) */
 .item.job summary .meta { color: var(--muted); }
 
-/* No hover underline; keep accessible focus */
-.item.job summary:hover h3 { text-decoration: none; }
+/* Focus style for keyboard access */
 .item.job summary:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
-  border-radius: 8px;
 }
 
-/* Remove native disclosure markers/arrows */
+/* Remove native disclosure arrows */
 .item.job summary::-webkit-details-marker { display: none; }
 .item.job summary::marker { content: ""; }
 
-/* Spacing for expanded content */
+/* Space between header and content list */
 .item.job > ul { margin-top: 10px; }
 
 /* =============================================================
-   Collapsible Skills Card (matches jobs)
+   SKILLS — compact inline DL
    ============================================================= */
-
-/* Box + pointer cursor on whole card */
-details.item.skills {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  box-shadow: var(--shadow);
-  margin-bottom: 10px;
-  cursor: pointer;
+.item.skill-compact { padding: 10px 12px; }
+dl.skills.tight {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 12px;
+  row-gap: 6px;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
-
-/* Summary row (single line) */
-.item.skills summary {
-  list-style: none;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  cursor: inherit;      /* inherits pointer from details */
-  outline: none;
-  padding: 0;
+dl.skills.tight dt {
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+}
+dl.skills.tight dd {
+  margin: 0;
   color: var(--fg);
 }
-
-/* Blue title for affordance */
-.item.skills summary h3 {
-  margin: 0;
-  font-size: 1.0625rem;
-  color: var(--accent);
-}
-
-/* Remove native disclosure markers (no arrows) */
-.item.skills summary::-webkit-details-marker { display: none; }
-.item.skills summary::marker { content: ""; }
-
-/* No hover underline; keep accessible focus */
-.item.skills summary:hover h3 { text-decoration: none; }
-.item.skills summary:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-  border-radius: 8px;
-}
-
-/* Spacing for content when expanded */
-.item.skills > .skills { margin-top: 10px; }
 
 /* =============================================================
-   Collapsible Skill Category Cards
+   LINK ICON (before project titles)
    ============================================================= */
+.link-icon {
+  display: inline-block;
+  width: 22px;     /* was 14px */
+  height: 22px;    /* was 14px */
+  margin-right: 8px;
+  vertical-align: -3px; /* nudge to align with text baseline */
+  background: var(--accent);
 
-/* Box + pointer cursor on whole card */
-details.item.skill {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  box-shadow: var(--shadow);
-  margin-bottom: 10px;
-  cursor: pointer;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M10.59 13.41a1.996 1.996 0 0 0 2.82 0l3.54-3.54a2 2 0 1 0-2.83-2.83l-.88.88M13.41 10.59a1.996 1.996 0 0 0-2.82 0l-3.54 3.54a2 2 0 1 0 2.83 2.83l.88-.88" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center / contain;
+          mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M10.59 13.41a1.996 1.996 0 0 0 2.82 0l3.54-3.54a2 2 0 1 0-2.83-2.83l-.88.88M13.41 10.59a1.996 1.996 0 0 0-2.82 0l-3.54 3.54a2 2 0 1 0 2.83 2.83l.88-.88" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center / contain;
 }
-
-/* Summary row */
-.item.skill summary {
-  list-style: none;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  cursor: inherit;      /* inherits pointer from details */
-  outline: none;
-  padding: 0;
-  color: var(--fg);
-}
-
-/* Blue category title (clickable look) */
-.item.skill summary h3 {
-  margin: 0;
-  font-size: 1.0625rem;
-  color: var(--accent);
-}
-
-/* Remove native disclosure markers (no arrows) */
-.item.skill summary::-webkit-details-marker { display: none; }
-.item.skill summary::marker { content: ""; }
-
-/* No hover underline; keep accessible focus ring */
-.item.skill summary:hover h3 { text-decoration: none; }
-.item.skill summary:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-  border-radius: 8px;
-}
-
-/* Spacing for content when expanded */
-.item.skill > ul { margin-top: 10px; }
 
