@@ -32,10 +32,9 @@ builder:
 	  docker buildx create --name mbuilder --use; \
 	fi
 
-# --- Build multiarch image (local only, not pushed) ---
+# --- Build image for local platform (not pushed) ---
 build: builder
 	docker buildx build \
-	  --platform=linux/amd64,linux/arm64 \
 	  -t $(IMAGE) \
 	  --load \
 	  .
