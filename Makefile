@@ -11,7 +11,7 @@
 # --- Image configuration ---
 REGISTRY    ?= registry.munchbox.cc
 IMAGE_NAME  ?= alex-resume
-TAG         ?= latest
+TAG         ?= $(shell cat .version)
 
 IMAGE       := $(REGISTRY)/$(IMAGE_NAME):$(TAG)
 
