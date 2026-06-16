@@ -39,9 +39,9 @@ build: builder
 	  --load \
 	  .
 
-# --- Run container locally (amd64 host only) ---
-run:
-	docker run --rm --name $(IMAGE_NAME) -p 8080:80 $(IMAGE)
+# --- Run container locally (builds + loads first; never pulls from the registry) ---
+run: build
+	docker run --rm --name $(IMAGE_NAME) -p 8080:80 --pull=never $(IMAGE)
 
 # --- Build and push multiarch image ---
 push: builder

@@ -18,6 +18,7 @@ WORKDIR /usr/share/nginx/html
 COPY index.html .
 COPY styles.css .
 COPY theme.js .
+COPY images ./images
 
 # ------------------------------------------------------------
 # Networking
