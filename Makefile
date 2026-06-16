@@ -35,6 +35,7 @@ builder:
 # --- Build image for local platform (not pushed) ---
 build: builder
 	docker buildx build \
+	  --build-arg CSS_VERSION=$(TAG) \
 	  -t $(IMAGE) \
 	  --load \
 	  .
@@ -46,6 +47,7 @@ run: build
 # --- Build and push multiarch image ---
 push: builder
 	docker buildx build \
+	  --build-arg CSS_VERSION=$(TAG) \
 	  --platform=linux/amd64,linux/arm64 \
 	  -t $(IMAGE) \
 	  --push \

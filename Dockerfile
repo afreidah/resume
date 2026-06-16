@@ -10,15 +10,19 @@ FROM nginx:alpine
 # We copy your static assets directly into that directory.
 WORKDIR /usr/share/nginx/html
 
-# Copy your site files into the default nginx document root.
-# Ensure these filenames match what's on disk:
-#   - index.html   (the HTML you pasted)
-#   - styles.css   (the CSS you pasted)
-#   - theme.js     (the JS you pasted)
+# Build-time asset version. Defaults to "dev" for ad-hoc local builds; the
+# Makefile passes the .version value so cache-busting tracks each release.
+ARG CSS_VERSION=dev
+
+# Copy the static site files into the default nginx document root.
 COPY index.html .
 COPY styles.css .
 COPY theme.js .
 COPY images ./images
+
+# Cache-bust CSS/JS: append the build version as a query string so browsers
+# and the CDN fetch fresh assets after every deploy instead of stale copies.
+RUN sed -i "s|href=\"styles.css\"|href=\"styles.css?v=${CSS_VERSION}\"|; s|src=\"theme.js\"|src=\"theme.js?v=${CSS_VERSION}\"|" index.html
 
 # ------------------------------------------------------------
 # Networking
