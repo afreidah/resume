@@ -213,6 +213,22 @@ details.item.collapsible:hover {
 .item.collapsible summary h3 { margin: 0; color: var(--accent); }
 .proj-name { color: var(--muted); font-weight: 400; font-size: 1.14rem; }
 .proj-desc { color: #2dd4bf; font-weight: 400; font-size: 0.95rem; margin-left: 10px; }
+/* Projects: keep each header on a single line. Logo and name stay full;
+   the tagline takes the remaining width and truncates with an ellipsis
+   instead of wrapping. Repo links live in the card body, not the header. */
+.proj-section .item.collapsible summary { display: block; }
+.proj-section .item.collapsible summary h3 { display: flex; align-items: center; min-width: 0; }
+.proj-section .card-logo { flex: 0 0 auto; }
+/* Fixed name column so every tagline starts at the same x (widest name,
+   "Cloudflare Log Collector", measures ~219px). */
+.proj-section .proj-name { flex: 0 0 auto; white-space: nowrap; min-width: 225px; }
+.proj-section .proj-desc {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 /* Professional experience headers: same color scheme, titles aligned
    via a fixed-width company column. */
 .exp-company { display: inline-block; width: 184px; color: var(--muted); font-weight: 400; font-size: 1.14rem; }

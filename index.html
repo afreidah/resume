@@ -184,15 +184,13 @@
     </section>
 
     <!-- ==================== Projects & Open Source ================== -->
-    <section id="projects" aria-labelledby="proj-h">
-      <h2 id="proj-h">Solo Projects &amp; Open Source</h2>
+    <section id="projects" class="proj-section" aria-labelledby="proj-h">
+      <h2 id="proj-h">Solo Projects</h2>
 
       <!-- S3 Orchestrator -->
       <details class="item collapsible">
         <summary>
           <h3><img class="card-logo" src="images/s3-orchestrator.png" alt=""><span class="proj-name">S3 Orchestrator</span><span class="proj-desc">Combines multiple S3/blob storage backends</span></h3>
-        
-          <div class="repo repo-head"><a onclick="event.stopPropagation()" href="https://s3-orchestrator.munchbox.cc/" target="_blank" rel="noopener noreferrer">Project Page</a><a onclick="event.stopPropagation()" href="https://github.com/afreidah/s3-orchestrator" target="_blank" rel="noopener noreferrer">GitHub</a></div>
         </summary>
         <p>An S3-compatible proxy that unifies multiple object-storage providers behind a single endpoint.</p>
         <ul>
@@ -207,14 +205,13 @@
           <li>Hot-reloadable backend and quota config; cosign-signed images and release checksums</li>
           <li>Web dashboard and admin API, with OpenTelemetry tracing and Prometheus metrics</li>
         </ul>
+        <div class="repo"><a onclick="event.stopPropagation()" href="https://s3-orchestrator.munchbox.cc/" target="_blank" rel="noopener noreferrer">Project Page</a><a onclick="event.stopPropagation()" href="https://github.com/afreidah/s3-orchestrator" target="_blank" rel="noopener noreferrer">GitHub</a></div>
       </details>
 
       <!-- Munchbox -->
       <details class="item collapsible">
         <summary>
           <h3><img class="card-logo" src="images/munchbox.png" alt=""><span class="proj-name">Munchbox</span><span class="proj-desc">Production-grade homelab on Nomad/Consul/Vault</span></h3>
-        
-          <div class="repo repo-head"><a onclick="event.stopPropagation()" href="https://github.com/afreidah/munchbox" target="_blank" rel="noopener noreferrer">GitHub</a></div>
         </summary>
         <p>A production-grade homelab infrastructure platform spanning on-prem bare-metal, Proxmox, and cloud nodes linked over WireGuard.</p>
         <ul>
@@ -230,14 +227,13 @@
           <li>Full observability: Prometheus, Grafana, Loki, Tempo, and Alertmanager</li>
           <li>Dual HA ingress nodes, each running the full stack (Traefik, keepalived, oauth2-proxy, cloudflared tunnel), so a keepalived VIP failover lands on a complete ingress path</li>
         </ul>
+        <div class="repo"><a onclick="event.stopPropagation()" href="https://github.com/afreidah/munchbox" target="_blank" rel="noopener noreferrer">GitHub</a></div>
       </details>
 
       <!-- Cloudflare Log Collector -->
       <details class="item collapsible">
         <summary>
           <h3><img class="card-logo" src="images/cloudflare-log-collector.png" alt="" style="--logo-scale:0.85"><span class="proj-name">Cloudflare Log Collector</span><span class="proj-desc">Collects zone analytics and audit logs</span></h3>
-        
-          <div class="repo repo-head"><a onclick="event.stopPropagation()" href="https://cloudflare-log-collector.munchbox.cc/" target="_blank" rel="noopener noreferrer">Project Page</a><a onclick="event.stopPropagation()" href="https://github.com/afreidah/cloudflare-log-collector" target="_blank" rel="noopener noreferrer">GitHub</a></div>
         </summary>
         <p>Collects Cloudflare zone analytics and account audit logs and ships them into an observability pipeline.</p>
         <ul>
@@ -248,33 +244,31 @@
           <li>OpenTelemetry tracing with trace and span IDs injected into logs for log-to-trace navigation in Grafana</li>
           <li>Multi-zone and multi-account collection; configurable poll interval, backfill, and batch size</li>
         </ul>
+        <div class="repo"><a onclick="event.stopPropagation()" href="https://cloudflare-log-collector.munchbox.cc/" target="_blank" rel="noopener noreferrer">Project Page</a><a onclick="event.stopPropagation()" href="https://github.com/afreidah/cloudflare-log-collector" target="_blank" rel="noopener noreferrer">GitHub</a></div>
       </details>
 
       <!-- Nomad Temporal Jobs -->
       <details class="item collapsible">
         <summary>
           <h3><img class="card-logo" src="images/nomad-temporal-jobs.png" alt=""><span class="proj-name">Nomad Temporal Jobs</span><span class="proj-desc">Temporal workers automating cluster ops</span></h3>
-        
-          <div class="repo repo-head"><a onclick="event.stopPropagation()" href="https://nomad-temporal-jobs.munchbox.cc/" target="_blank" rel="noopener noreferrer">Project Page</a><a onclick="event.stopPropagation()" href="https://github.com/afreidah/nomad-temporal-jobs" target="_blank" rel="noopener noreferrer">GitHub</a></div>
         </summary>
-        <p>Temporal workflow workers that automate recurring infrastructure operations on a Nomad/Consul cluster.</p>
+        <p>Temporal workflow workers that automate recurring infrastructure operations across a Nomad/Consul/Vault cluster - five worker images hosting eight cron-scheduled jobs.</p>
         <ul>
-          <li>Four domain workers (backup, Trivy scan, node cleanup, cert acquirer), each with its own image, task queue, and Nomad job</li>
-          <li>Backup workflow snapshots Nomad/Consul Raft and PostgreSQL with per-database fan-out and S3 upload with retention</li>
+          <li>Five worker images / eight scheduled jobs; a shared cleanup worker runs four of them on one task queue (node cleanup, registry GC, aptly cleanup, Postgres VACUUM)</li>
+          <li>Backup workflow snapshots Nomad + Consul (Vault) Raft and PostgreSQL concurrently, with per-database pg_dump fan-out and S3 upload with local/off-site retention</li>
           <li>Trivy workflow discovers running images from the Nomad API and scans them with bounded concurrency, persisting CVEs to PostgreSQL</li>
-          <li>Registry GC saga with deferred compensation: scales the registry offline, runs GC, then idempotently scales it back online</li>
-          <li>Cert acquirer authenticates to Vault via Nomad Workload Identity (no static tokens) and issues wildcard certs via ACME DNS-01 (lego)</li>
-          <li>Shared retry/backoff strategy with activity heartbeats, transient-vs-permanent error classification, and per-operation timeouts</li>
-          <li>OpenTelemetry tracing (OTLP gRPC to Tempo) with automatic service-graph edges; scheduled via Terraform-managed Temporal Schedules</li>
+          <li>Maintenance saga shared by registry GC and aptly cleanup: scale the Nomad job offline, do the work, then always scale it back (deferred compensation, so nothing is left stranded)</li>
+          <li>Node cleanup deletes stale Nomad alloc directories over SFTP (native operations, never a remote shell); online Postgres VACUUM (ANALYZE) fans out across every database</li>
+          <li>Cert acquirer issues the *.munchbox.cc wildcard via ACME DNS-01 (lego), staging cert+key in Vault so a publish failure never re-runs issuance; GitHub token renewal mints short-lived GitHub App tokens and NaCl-seals them into each repo's Actions secret, replacing hand-rotated PATs</li>
+          <li>Newer workers authenticate to Vault via Nomad Workload Identity (no static tokens); shared retry/backoff with heartbeats and transient-vs-permanent error classification, OpenTelemetry tracing to Tempo, scheduled via Terraform-managed Temporal Schedules</li>
         </ul>
+        <div class="repo"><a onclick="event.stopPropagation()" href="https://nomad-temporal-jobs.munchbox.cc/" target="_blank" rel="noopener noreferrer">Project Page</a><a onclick="event.stopPropagation()" href="https://github.com/afreidah/nomad-temporal-jobs" target="_blank" rel="noopener noreferrer">GitHub</a></div>
       </details>
 
       <!-- g3 -->
       <details class="item collapsible">
         <summary>
           <h3><img class="card-logo" src="images/g3.png" alt="" style="--logo-scale:0.85"><span class="proj-name">g3</span><span class="proj-desc">S3-compatible object storage on Google Drive</span></h3>
-        
-          <div class="repo repo-head"><a onclick="event.stopPropagation()" href="https://g3.munchbox.cc/" target="_blank" rel="noopener noreferrer">Project Page</a><a onclick="event.stopPropagation()" href="https://github.com/afreidah/g3" target="_blank" rel="noopener noreferrer">GitHub</a></div>
         </summary>
         <p>An S3-compatible storage gateway that stores objects in Google Drive and their metadata in Gmail.</p>
         <ul>
@@ -285,14 +279,13 @@
           <li>SigV4 authentication with constant-time signature verification</li>
           <li>Independent rate-limit pools for the Drive and Gmail quotas; Prometheus and OpenTelemetry instrumentation</li>
         </ul>
+        <div class="repo"><a onclick="event.stopPropagation()" href="https://g3.munchbox.cc/" target="_blank" rel="noopener noreferrer">Project Page</a><a onclick="event.stopPropagation()" href="https://github.com/afreidah/g3" target="_blank" rel="noopener noreferrer">GitHub</a></div>
       </details>
 
       <!-- Oracle Watchdog -->
       <details class="item collapsible">
         <summary>
           <h3><img class="card-logo" src="images/oracle-watchdog.png" alt=""><span class="proj-name">Oracle Watchdog</span><span class="proj-desc">Auto-recovers stuck Oracle Cloud free-tier nodes</span></h3>
-        
-          <div class="repo repo-head"><a onclick="event.stopPropagation()" href="https://oracle-watchdog.munchbox.cc/" target="_blank" rel="noopener noreferrer">Project Page</a><a onclick="event.stopPropagation()" href="https://github.com/afreidah/oracle-watchdog" target="_blank" rel="noopener noreferrer">GitHub</a></div>
         </summary>
         <p>A distributed monitor-and-recovery system that detects stuck Oracle Cloud free-tier instances and automatically restarts them.</p>
         <ul>
@@ -304,14 +297,13 @@
           <li>Optional Cloudflare DDNS updater that keeps an A record synced to the host's public IP</li>
           <li>Prometheus metrics for monitor and agent modes; OpenTelemetry tracing to Tempo</li>
         </ul>
+        <div class="repo"><a onclick="event.stopPropagation()" href="https://oracle-watchdog.munchbox.cc/" target="_blank" rel="noopener noreferrer">Project Page</a><a onclick="event.stopPropagation()" href="https://github.com/afreidah/oracle-watchdog" target="_blank" rel="noopener noreferrer">GitHub</a></div>
       </details>
 
       <!-- Flight Fetcher -->
       <details class="item collapsible">
         <summary>
           <h3><img class="card-logo" src="images/flight-fetcher.png" alt=""><span class="proj-name">Flight Fetcher</span><span class="proj-desc">Real-time tracker for aircraft overhead</span></h3>
-        
-          <div class="repo repo-head"><a onclick="event.stopPropagation()" href="https://github.com/afreidah/flight-fetcher" target="_blank" rel="noopener noreferrer">GitHub</a></div>
         </summary>
         <p>A self-hosted service that tracks aircraft around a configurable location in real time.</p>
         <ul>
@@ -322,16 +314,35 @@
           <li>Detects global emergency squawk codes with Discord/Telegram alerts</li>
           <li>Dual storage (Redis live state + PostgreSQL history via sqlc); live Leaflet dashboard, OpenTelemetry, and Prometheus</li>
         </ul>
+        <div class="repo"><a onclick="event.stopPropagation()" href="https://github.com/afreidah/flight-fetcher" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+      </details>
+    </section>
+
+    <!-- =============== Open Source Contributions =============== -->
+    <section id="opensource" class="proj-section" aria-labelledby="os-h">
+      <h2 id="os-h">Open Source Contributions</h2>
+
+      <!-- HashiCorp Nomad bug fix -->
+      <details class="item collapsible">
+        <summary>
+          <h3><img class="card-logo" src="images/nomad.png" alt=""><span class="proj-name">HashiCorp Nomad Bug Fix</span></h3>
+        </summary>
+        <p>Diagnosed and fixed a Nomad state-store bug where jobs written in the same Raft transaction (such as mass rescheduling after a node failure) shared a <code>ModifyIndex</code> and silently vanished from the <code>/v1/jobs/statuses</code> endpoint and the web UI jobs page, while still appearing via <code>/v1/jobs</code> and the CLI.</p>
+        <ul>
+          <li>Root cause: the jobs-table <code>modify_index</code> memdb index was declared unique, but <code>ModifyIndex</code> is not unique across jobs, so colliding jobs were dropped from any query iterating that index</li>
+          <li>Submitted a written root-cause analysis, a live-cluster reproduction, and a self-contained Docker A/B harness that proves the bug and verifies the fix</li>
+          <li>Fix marks the index non-unique and adds a regression test; reviewed and merged into hashicorp/nomad</li>
+        </ul>
+        <div class="repo"><a onclick="event.stopPropagation()" href="https://github.com/hashicorp/nomad/pull/28158" target="_blank" rel="noopener noreferrer">View PR</a></div>
       </details>
 
       <!-- Go protobuf contribution -->
       <details class="item collapsible">
         <summary>
           <h3><img class="card-logo" src="images/go-logo.png" alt="" style="--logo-scale:0.68"><span class="proj-name">Go Protobuf Library Contribution</span></h3>
-        
-          <div class="repo repo-head"><a onclick="event.stopPropagation()" href="https://go-review.googlesource.com/c/protobuf/+/697595" target="_blank" rel="noopener noreferrer">View Change</a></div>
         </summary>
         <p>Fixed a typo in the Go protobuf library, discovered through a custom CI/CD pipeline I designed for a backend service. Registered as a Go contributor and pushed the fix through Gerrit per the contribution rules; merged in version 1.25.</p>
+        <div class="repo"><a onclick="event.stopPropagation()" href="https://go-review.googlesource.com/c/protobuf/+/697595" target="_blank" rel="noopener noreferrer">View Change</a></div>
       </details>
     </section>
 
