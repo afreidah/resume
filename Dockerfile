@@ -19,6 +19,7 @@ COPY index.html .
 COPY styles.css .
 COPY theme.js .
 COPY images ./images
+COPY nginx-cache.conf /etc/nginx/conf.d/nginx-cache.conf
 
 # Cache-bust CSS/JS: append the build version as a query string so browsers
 # and the CDN fetch fresh assets after every deploy instead of stale copies.
