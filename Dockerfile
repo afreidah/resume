@@ -18,6 +18,7 @@ WORKDIR /usr/share/nginx/html
 COPY index.html .
 COPY styles.css .
 COPY theme.js .
+COPY nginx-cache.conf /etc/nginx/conf.d/nginx-cache.conf
 
 # ------------------------------------------------------------
 # Networking
