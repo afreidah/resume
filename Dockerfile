@@ -18,6 +18,8 @@ ARG CSS_VERSION=dev
 COPY index.html .
 COPY styles.css .
 COPY theme.js .
+COPY robots.txt .
+COPY sitemap.xml .
 COPY images ./images
 COPY nginx-cache.conf /etc/nginx/conf.d/nginx-cache.conf
 
