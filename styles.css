@@ -82,7 +82,7 @@ a:hover { text-decoration: underline; }
    HEADER
    ============================================================= */
 header[role="banner"] { display: grid; gap: 8px; }
-.name { font-size: 2rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); }
+.name { font-size: 2rem; font-weight: 800; letter-spacing: -0.01em; color: var(--muted); margin: 0; }
 .role { font-size: 1.125rem; color: var(--muted); }
 
 /* Role line + theme toggle inline */
